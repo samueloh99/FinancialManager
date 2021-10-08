@@ -13,17 +13,13 @@ import {
 	Td,
 } from "@chakra-ui/react";
 
+import BaseTemplate from "../../style/BaseTemplateContent";
+
 import { AiOutlineSearch } from "react-icons/ai";
 
-const Content = () => {
+const Cliente = () => {
 	return (
-		<Flex
-			bg="white"
-			color="black"
-			direction="column"
-			alignItems="center"
-			w="100%"
-			padding="20px">
+		<BaseTemplate>
 			<Text>Clientes</Text>
 			<Flex marginLeft="auto">
 				<Input
@@ -51,8 +47,8 @@ const Content = () => {
 					</Tr>
 				</Tbody>
 			</Table>
-		</Flex>
+		</BaseTemplate>
 	);
 };
 
-export default Content;
+export default Cliente;

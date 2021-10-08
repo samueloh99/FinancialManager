@@ -1,28 +1,37 @@
 import React from "react";
 
-import { Flex, Text } from "@chakra-ui/react";
+import { NavLink } from "react-router-dom";
 
-import { adminMenus } from "./adminMenus";
+import { Flex, Text, Box, Stack } from "@chakra-ui/react";
+
+import { adminMenus } from "./data/adminMenus";
 
 const Sidebar = () => {
+	// const { asPath } = useRouter();
+
 	return (
-		<Flex w="300px" direction="column">
-			{adminMenus.map((item) => {
-				return (
-					<Flex
-						borderBottom="1px solid black"
-						direction="row"
-						justify="center"
-						cursor="pointer"
-						alignItems="center">
-						{item.icon}
-						<Text marginLeft="10px" p="10px 0px" align="center">
-							{item.title}
-						</Text>
-					</Flex>
-				);
-			})}
-		</Flex>
+		<Box as="aside" w="15%" px="120px">
+			<Stack align="start" spacing={5}>
+				{adminMenus.map((item, index) => {
+					const { link, title, icon } = item;
+					return (
+						<NavLink
+							key={index}
+							exact={true}
+							activeStyle={{
+								fontWeight: "bold",
+								color: "#ED64A6",
+							}}
+							to={link}>
+							<Flex align="center">
+								{icon}
+								<Text ml="3">{title}</Text>
+							</Flex>
+						</NavLink>
+					);
+				})}
+			</Stack>
+		</Box>
 	);
 };
 

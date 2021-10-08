@@ -1,11 +1,7 @@
-import Home from "./components/Home";
+import Routes from "./routes";
 
 const App = () => {
-	return (
-		<div className="App">
-			<Home />
-		</div>
-	);
+	return <Routes />;
 };
 
 export default App;
