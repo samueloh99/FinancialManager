@@ -1,14 +1,32 @@
 import React from "react";
 
-import { Flex, Image, HStack, Icon, Box, Text, Avatar } from "@chakra-ui/react";
-
-import { RiNotificationLine, RiUserAddLine } from "react-icons/ri";
-
-import Logo from "../assets/logo.png";
+import {
+	Flex,
+	Image,
+	HStack,
+	Icon,
+	Box,
+	IconButton,
+	Text,
+	Avatar,
+	useBreakpointValue,
+} from "@chakra-ui/react";
 
 import { Link } from "react-router-dom";
 
+import { RiMenuLine, RiNotificationLine, RiUserAddLine } from "react-icons/ri";
+
+import Logo from "../assets/logo.png";
+
+import { useSidebarDrawer } from "../context/SidebarDrawerContext";
+
 const Header = () => {
+	const { onOpen } = useSidebarDrawer();
+
+	const isWideVersion = useBreakpointValue({
+		base: false,
+		lg: true,
+	});
 	return (
 		<Flex
 			as="header"
@@ -16,8 +34,18 @@ const Header = () => {
 			maxWidth="100%"
 			h="20"
 			m="40px 0px"
-			px="120px"
+			px={{ base: "30px", lg: "120px" }}
 			align="center">
+			{!isWideVersion && (
+				<IconButton
+					aria-label="Open navigation"
+					fontSize="24"
+					variant="unstyled"
+					mr="5"
+					onClick={onOpen}
+					icon={<Icon as={RiMenuLine} />}
+				/>
+			)}
 			<Link to="/">
 				<Image width="100px" src={Logo} />
 			</Link>
@@ -35,10 +63,14 @@ const Header = () => {
 				</HStack>
 				<Flex align="center">
 					<Box>
-						<Text>Samuel Oh</Text>
-						<Text color="gray.300" fontSize="small">
-							teste@gmail.com
-						</Text>
+						{isWideVersion && (
+							<>
+								<Text>Samuel Oh</Text>
+								<Text color="gray.300" fontSize="small">
+									teste@gmail.com
+								</Text>
+							</>
+						)}
 					</Box>
 					<Avatar size="md" ml="3" name="Samuel Oh" />
 				</Flex>

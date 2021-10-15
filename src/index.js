@@ -11,11 +11,15 @@ import { chakraTheme } from "./style/chakraTheme";
 
 import { queryClient } from "../src/services/queryClient";
 
+import { SidebarDrawerProvider } from "./context/SidebarDrawerContext";
+
 ReactDOM.render(
 	<React.StrictMode>
 		<QueryClientProvider client={queryClient}>
 			<ChakraProvider resetCSS theme={chakraTheme}>
-				<App />
+				<SidebarDrawerProvider>
+					<App />
+				</SidebarDrawerProvider>
 			</ChakraProvider>
 			<ReactQueryDevtools />
 		</QueryClientProvider>
