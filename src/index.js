@@ -3,13 +3,13 @@ import ReactDOM from "react-dom";
 import "./index.css";
 import App from "./App";
 
-import { QueryClient, QueryClientProvider } from "react-query";
+import { QueryClientProvider } from "react-query";
 import { ReactQueryDevtools } from "react-query/devtools";
 import { ChakraProvider } from "@chakra-ui/react";
 
 import { chakraTheme } from "./style/chakraTheme";
 
-const queryClient = new QueryClient();
+import { queryClient } from "../src/services/queryClient";
 
 ReactDOM.render(
 	<React.StrictMode>
