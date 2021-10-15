@@ -5,6 +5,7 @@ import {
 	Input,
 	Text,
 	Icon,
+	Stack,
 	useDisclosure,
 	HStack,
 	Spinner,
@@ -29,8 +30,15 @@ const Cliente = () => {
 
 	return (
 		<BaseTemplate>
-			<Flex justifyContent="space-between">
-				<HStack direction="row" align="center" spacing={10}>
+			<Flex
+				w="100%"
+				justifyContent="space-between"
+				direction={{ base: "column", lg: "row" }}>
+				<Stack
+					direction={{ base: "column", lg: "row" }}
+					mb={{ base: "60px", lg: "0px" }}
+					align="center"
+					spacing={10}>
 					<Text fontSize="20px" fontWeight="bold" textTransform="uppercase">
 						Clientes
 					</Text>
@@ -44,8 +52,8 @@ const Cliente = () => {
 					</ModalComponent>
 
 					{!isLoading && isFetching && <Spinner size="sm" color="gray.500" />}
-				</HStack>
-				<HStack>
+				</Stack>
+				<HStack m={{ base: "auto", lg: "0 0 0 auto" }}>
 					<Flex marginLeft="auto" bg="gray.900" p="5" borderRadius="100px">
 						<Input
 							variant="unstyled"
@@ -58,7 +66,9 @@ const Cliente = () => {
 					</Flex>
 				</HStack>
 			</Flex>
-			<TableData isLoading={isLoading} error={error} data={data} />
+			<Flex w="100%">
+				<TableData isLoading={isLoading} error={error} data={data} />
+			</Flex>
 		</BaseTemplate>
 	);
 };

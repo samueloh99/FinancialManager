@@ -8,6 +8,7 @@ import {
 	Table,
 	Thead,
 	Spinner,
+	useBreakpointValue,
 	Tbody,
 	Tr,
 	Th,
@@ -37,6 +38,11 @@ const TableData = ({ isLoading, error, data }) => {
 		queryClient.resetQueries("clientes");
 	};
 
+	const isWideVersion = useBreakpointValue({
+		base: false,
+		lg: true,
+	});
+
 	return (
 		<>
 			{isLoading ? (
@@ -52,11 +58,15 @@ const TableData = ({ isLoading, error, data }) => {
 					<Thead>
 						<Tr>
 							<Th>Cliente</Th>
-							<Th>Manuntenção</Th>
-							<Th>Marketing</Th>
-							<Th>Midia Social</Th>
-							<Th>Data Vencimento</Th>
-							<Th>Apagar</Th>
+							{isWideVersion && (
+								<>
+									<Th>Manuntenção</Th>
+									<Th>Marketing</Th>
+									<Th>Midia Social</Th>
+									<Th>Data Vencimento</Th>
+									<Th>Apagar</Th>
+								</>
+							)}
 							<Th>Editar</Th>
 						</Tr>
 					</Thead>
@@ -65,36 +75,40 @@ const TableData = ({ isLoading, error, data }) => {
 							return (
 								<Tr key={index}>
 									<Td>{item.cliente}</Td>
-									<Td>
-										{item.suport ? (
-											<CheckIcon color="green" />
-										) : (
-											<CloseIcon color="red" />
-										)}
-									</Td>
-									<Td>
-										{item.mkt ? (
-											<CheckIcon color="green" />
-										) : (
-											<CloseIcon color="red" />
-										)}
-									</Td>
-									<Td>
-										{item.socialMedia ? (
-											<CheckIcon color="green" />
-										) : (
-											<CloseIcon color="red" />
-										)}
-									</Td>
-									<Td>
-										<Text>DIA {item.vencimento}</Text>
-									</Td>
-									<Td>
-										<DeleteIcon
-											cursor="pointer"
-											onClick={() => onDelete(item._id)}
-										/>
-									</Td>
+									{isWideVersion && (
+										<>
+											<Td>
+												{item.suport ? (
+													<CheckIcon color="green" />
+												) : (
+													<CloseIcon color="red" />
+												)}
+											</Td>
+											<Td>
+												{item.mkt ? (
+													<CheckIcon color="green" />
+												) : (
+													<CloseIcon color="red" />
+												)}
+											</Td>
+											<Td>
+												{item.socialMedia ? (
+													<CheckIcon color="green" />
+												) : (
+													<CloseIcon color="red" />
+												)}
+											</Td>
+											<Td>
+												<Text>DIA {item.vencimento}</Text>
+											</Td>
+											<Td>
+												<DeleteIcon
+													cursor="pointer"
+													onClick={() => onDelete(item._id)}
+												/>
+											</Td>
+										</>
+									)}
 									<Td>
 										<EditClienteForm id={item._id} />
 									</Td>
