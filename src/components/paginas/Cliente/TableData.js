@@ -1,5 +1,7 @@
 import React from "react";
 
+import { useMutation } from "react-query";
+
 import {
 	Flex,
 	Text,
@@ -12,9 +14,29 @@ import {
 	Td,
 } from "@chakra-ui/react";
 
-import { CheckIcon, CloseIcon } from "@chakra-ui/icons";
+import { CheckIcon, CloseIcon, DeleteIcon } from "@chakra-ui/icons";
+
+import { api } from "../../../services/api";
+
+import { queryClient } from "../../../services/queryClient";
+
+import EditClienteForm from "./EditaClienteForm";
 
 const TableData = ({ isLoading, error, data }) => {
+	const deleteCliente = useMutation(
+		async (id) => {
+			const response = await api.delete(`/${id}`);
+
+			return response;
+		},
+		{ onSuccess: () => queryClient.invalidateQueries("clientes") }
+	);
+
+	const onDelete = async (props) => {
+		await deleteCliente.mutateAsync(props);
+		queryClient.resetQueries("clientes");
+	};
+
 	return (
 		<>
 			{isLoading ? (
@@ -34,6 +56,8 @@ const TableData = ({ isLoading, error, data }) => {
 							<Th>Marketing</Th>
 							<Th>Midia Social</Th>
 							<Th>Data Vencimento</Th>
+							<Th>Apagar</Th>
+							<Th>Editar</Th>
 						</Tr>
 					</Thead>
 					<Tbody>
@@ -64,6 +88,15 @@ const TableData = ({ isLoading, error, data }) => {
 									</Td>
 									<Td>
 										<Text>DIA {item.vencimento}</Text>
+									</Td>
+									<Td>
+										<DeleteIcon
+											cursor="pointer"
+											onClick={() => onDelete(item._id)}
+										/>
+									</Td>
+									<Td>
+										<EditClienteForm id={item._id} />
 									</Td>
 								</Tr>
 							);
