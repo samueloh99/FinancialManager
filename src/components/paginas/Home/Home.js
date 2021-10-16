@@ -27,22 +27,22 @@ const Home = () => {
 				<SimpleGrid
 					flex="1"
 					gap="4"
-					minChildWidth="320px"
+					minChildWidth="220px"
 					align="flex-start"
 					mt="10">
-					<Box p="8" bg="gray.900" borderRadius={8}>
-						<Heading fontSize="20px" mb="5">
+					<Box p="7" bg="gray.900" borderRadius={8}>
+						<Heading fontSize={{ base: "14px", lg: "20px" }} mb="5">
 							Conta Bradesco
 						</Heading>
 						<StatGroup>
-							<Stat>
+							<Stat fontSize={{ base: "12px", lg: "18px" }}>
 								<StatLabel>Saldo</StatLabel>
 								<StatNumber>R$ 345,670</StatNumber>
 							</Stat>
 						</StatGroup>
 					</Box>
-					<Box p="8" bg="gray.900" borderRadius={8}>
-						<Heading fontSize="20px" mb="5">
+					<Box p="7" bg="gray.900" borderRadius={8}>
+						<Heading fontSize={{ base: "14px", lg: "20px" }} mb="5">
 							A Receber
 						</Heading>
 						<StatGroup>
@@ -52,8 +52,8 @@ const Home = () => {
 							</Stat>
 						</StatGroup>
 					</Box>
-					<Box p="8" bg="gray.900" borderRadius={8}>
-						<Heading fontSize="20px" mb="5">
+					<Box p="7" bg="gray.900" borderRadius={8}>
+						<Heading fontSize={{ base: "14px", lg: "20px" }} mb="5">
 							Clientes
 						</Heading>
 						<StatGroup>
@@ -63,8 +63,8 @@ const Home = () => {
 							</Stat>
 						</StatGroup>
 					</Box>
-					<Box p="8" bg="gray.900" borderRadius={8}>
-						<Heading fontSize="20px" mb="5">
+					<Box p="7" bg="gray.900" borderRadius={8}>
+						<Heading fontSize={{ base: "14px", lg: "20px" }} mb="5">
 							Despesa Fixo
 						</Heading>
 						<StatGroup>

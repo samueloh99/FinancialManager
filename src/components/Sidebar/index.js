@@ -35,7 +35,7 @@ const Sidebar = () => {
 						<DrawerCloseButton />
 						<DrawerHeader>Navegação</DrawerHeader>
 						<DrawerBody>
-							<SidebarNav />
+							<SidebarNav onClose={onClose} />
 						</DrawerBody>
 					</DrawerContent>
 				</DrawerOverlay>
@@ -45,7 +45,7 @@ const Sidebar = () => {
 
 	return (
 		<Box as="aside" w="15%" px="120px">
-			<SidebarNav />
+			<SidebarNav onClose={onClose} />
 		</Box>
 	);
 };

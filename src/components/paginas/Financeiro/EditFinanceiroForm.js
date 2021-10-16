@@ -4,28 +4,21 @@ import { useMutation } from "react-query";
 
 import { useForm } from "react-hook-form";
 
-import { api } from "../../../services/api";
+import { apiMovimentacoes } from "../../../services/api";
 
 import { queryClient } from "../../../services/queryClient";
 
 import {
 	Input,
-	Checkbox,
 	FormControl,
 	HStack,
 	Button,
+	Text,
 	VStack,
-	Box,
 	useDisclosure,
 	SimpleGrid,
-	NumberInput,
-	NumberInputField,
-	NumberInputStepper,
-	NumberIncrementStepper,
-	NumberDecrementStepper,
 	FormErrorMessage,
 	FormLabel,
-	CheckboxGroup,
 	Divider,
 	Modal,
 	ModalOverlay,
@@ -41,23 +34,23 @@ const EditFinanceiroForm = ({ id }) => {
 	const updateCliente = useMutation(
 		async (data) => {
 			const newData = {
-				mkt: data.mkt,
-				suport: data.suport,
-				socialMedia: data.socialMedia,
-				vencimento: data.vencimento,
-				cliente: data.cliente,
+				titulo: data.titulo,
+				valor: data.valor,
+				tipo: data.tipo,
+				date: data.date,
+				responsavel: data.responsavel,
 			};
-			const response = await api.put(`/${data._id}`, {
+			const response = await apiMovimentacoes.put(`/${data._id}`, {
 				...newData,
 			});
 
 			return response;
 		},
-		{ onSuccess: () => queryClient.invalidateQueries("clientes") }
+		{ onSuccess: () => queryClient.invalidateQueries("movimentacoes") }
 	);
 
 	const queryDataRetrieved = queryClient
-		.getQueryData("clientes")
+		.getQueryData("movimentacoes")
 		.find((item) => item._id === id);
 
 	const {
@@ -65,7 +58,11 @@ const EditFinanceiroForm = ({ id }) => {
 		handleSubmit,
 		formState: { errors, isSubmitting },
 	} = useForm({
-		defaultValues: queryDataRetrieved,
+		defaultValues: {
+			titulo: queryDataRetrieved.titulo,
+			valor: parseInt(queryDataRetrieved.valor),
+			...queryDataRetrieved,
+		},
 	});
 
 	const onSubmit = async (data) => {
@@ -84,76 +81,121 @@ const EditFinanceiroForm = ({ id }) => {
 					<ModalHeader>Editar Cliente</ModalHeader>
 					<ModalCloseButton />
 					<ModalBody bg="gray.900">
-						<Box>
-							<Divider />
-							<VStack my="10">
-								<form onSubmit={handleSubmit(onSubmit)}>
-									<SimpleGrid w="100%" spacing="10">
-										<VStack align="start">
-											<FormControl isInvalid={errors.cliente}>
-												<FormLabel>CLIENTE</FormLabel>
-												<Input
-													{...register("cliente", {
-														required: {
-															value: true,
-															message: "Campo Obrigatório",
-														},
-													})}
-												/>
-												<FormErrorMessage>
-													{errors.cliente && errors.cliente.message}
-												</FormErrorMessage>
-											</FormControl>
-										</VStack>
+						<Divider />
 
-										<CheckboxGroup colorScheme="pink">
-											<HStack>
-												<Checkbox {...register("mkt")}>Marketing</Checkbox>
-												<Checkbox {...register("socialMedia")}>
-													Midia Social
-												</Checkbox>
-												<Checkbox {...register("suport")}>Manuntenção</Checkbox>
-											</HStack>
-										</CheckboxGroup>
-										<VStack align="start">
-											<FormControl isInvalid={errors.vencimento}>
-												<FormLabel>DATA DE VENCIMENTO</FormLabel>
-												<NumberInput defaultValue={0} min={1} max={30}>
-													<NumberInputField
-														{...register("vencimento", {
+						<VStack my="10">
+							<form onSubmit={handleSubmit(onSubmit)}>
+								<SimpleGrid w="100%" spacing="10">
+									<VStack align="start">
+										<FormControl isInvalid={errors.titulo}>
+											<FormLabel>Titulo</FormLabel>
+											<Input
+												{...register("titulo", {
+													required: {
+														value: true,
+														message: "Campo Obrigatório",
+													},
+												})}
+											/>
+											<FormErrorMessage>
+												{errors.titulo && errors.titulo.message}
+											</FormErrorMessage>
+										</FormControl>
+									</VStack>
+
+									<HStack alignItems="end" justifyItems="end" spacing="6">
+										<FormControl isInvalid={errors.valor}>
+											<FormLabel>Valor</FormLabel>
+											<Input
+												type="number"
+												{...register("valor", {
+													required: {
+														value: true,
+														message: "Campo Valor Obrigatório",
+													},
+												})}
+											/>
+											<FormErrorMessage>
+												{errors.valor && errors.valor.message}
+											</FormErrorMessage>
+										</FormControl>
+										<FormControl isInvalid={errors.tipo}>
+											<VStack alignItems="center" justifyItems="center">
+												<HStack w="100%">
+													<Text>Entrada</Text>
+													<input
+														{...register("tipo", {
 															required: {
 																value: true,
 																message: "Campo Obrigatório",
 															},
-															maxLength: 2,
 														})}
+														type="radio"
+														value="entrada"
 													/>
-													<NumberInputStepper>
-														<NumberIncrementStepper />
-														<NumberDecrementStepper />
-													</NumberInputStepper>
-												</NumberInput>
+												</HStack>
+												<HStack w="100%">
+													<Text>Saida</Text>
+													<input
+														{...register("tipo", {
+															required: {
+																value: true,
+																message: "Campo Obrigatório",
+															},
+														})}
+														type="radio"
+														value="saida"
+													/>
+												</HStack>
 												<FormErrorMessage>
-													{errors.vencimento && errors.vencimento.message}
+													{errors.tipo && errors.tipo.message}
 												</FormErrorMessage>
-											</FormControl>
-										</VStack>
-										<VStack w="100%">
-											<Button
-												w="100%"
-												colorScheme="pink"
-												type="submit"
-												isLoading={isSubmitting}>
-												Atualizar Cliente
-											</Button>
-											<Button w="100%" colorScheme="pink" onClick={onClose}>
-												Fechar
-											</Button>
-										</VStack>
-									</SimpleGrid>
-								</form>
-							</VStack>
-						</Box>
+											</VStack>
+										</FormControl>
+									</HStack>
+
+									<VStack align="start">
+										<FormControl isInvalid={errors.responsavel}>
+											<FormLabel>Responsável</FormLabel>
+											<Input
+												{...register("responsavel", {
+													required: {
+														value: true,
+														message: "Campo Obrigatório",
+													},
+												})}
+											/>
+											<FormErrorMessage>
+												{errors.responsavel && errors.responsavel.message}
+											</FormErrorMessage>
+										</FormControl>
+									</VStack>
+									<VStack align="start">
+										<FormControl isInvalid={errors.date}>
+											<FormLabel>DATA</FormLabel>
+											<Input
+												type="date"
+												{...register("date", {
+													required: {
+														value: true,
+														message: "Campo Obrigatório",
+													},
+												})}
+											/>
+											<FormErrorMessage>
+												{errors.date && errors.date.message}
+											</FormErrorMessage>
+										</FormControl>
+									</VStack>
+									<Button
+										colorScheme="pink"
+										type="submit"
+										isLoading={isSubmitting}>
+										Atualizar
+									</Button>
+								</SimpleGrid>
+							</form>
+						</VStack>
 					</ModalBody>
 				</ModalContent>
 			</Modal>

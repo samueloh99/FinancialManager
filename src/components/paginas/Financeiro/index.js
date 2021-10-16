@@ -66,7 +66,7 @@ const Financeiro = () => {
 					</Flex>
 				</HStack>
 			</Flex>
-			<Flex w="100%">
+			<Flex w="100%" justifyContent="center">
 				<TableData isLoading={isLoading} error={error} data={data} />
 			</Flex>
 		</BaseTemplate>

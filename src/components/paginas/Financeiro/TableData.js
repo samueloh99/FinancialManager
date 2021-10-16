@@ -13,6 +13,8 @@ import {
 	Td,
 } from "@chakra-ui/react";
 
+import EditFinanceiroForm from "./EditFinanceiroForm";
+
 const TableData = ({ isLoading, error, data }) => {
 	const isWideVersion = useBreakpointValue({
 		base: false,
@@ -30,9 +32,9 @@ const TableData = ({ isLoading, error, data }) => {
 					<Text>Falha ao obter os dados</Text>
 				</Flex>
 			) : (
-				<Table m="30px 0px" variant="simple">
+				<Table m="30px 0px" variant="simple" size={isWideVersion ? "lg" : "sm"}>
 					<Thead>
-						<Tr>
+						<Tr fontSize={{ base: "12px", lg: "18px" }}>
 							<Th>Título</Th>
 							<Th>Entrada</Th>
 							<Th>Saída</Th>
@@ -40,6 +42,7 @@ const TableData = ({ isLoading, error, data }) => {
 								<>
 									<Th>Responsável</Th>
 									<Th>Data</Th>
+									<Th>Editar</Th>
 								</>
 							)}
 						</Tr>
@@ -47,15 +50,18 @@ const TableData = ({ isLoading, error, data }) => {
 					<Tbody>
 						{data.map((item, index) => {
 							return (
-								<Tr key={index}>
+								<Tr key={index} fontSize={{ base: "12px", lg: "18px" }}>
 									<Td>{item.titulo}</Td>
-									<Td>R$ {item.tipo === "entrada" && item.valor}</Td>
-									<Td>R$ {item.tipo === "saida" && item.valor}</Td>
+									<Td>R$ {item.tipo === "entrada" ? item.valor : 0}</Td>
+									<Td>R$ {item.tipo === "saida" ? item.valor : 0}</Td>
 									{isWideVersion && (
 										<>
 											<Td>{item.responsavel}</Td>
 											<Td>
 												<Text>{item.date}</Text>
+											</Td>
+											<Td>
+												<EditFinanceiroForm id={item._id} />
 											</Td>
 										</>
 									)}

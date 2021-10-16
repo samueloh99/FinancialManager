@@ -6,7 +6,10 @@ import { adminMenus } from "../data/adminMenus";
 
 import { Flex, Text, Stack } from "@chakra-ui/react";
 
-const SidebarNav = () => {
+const SidebarNav = ({ onClose }) => {
+	const handleClick = () => {
+		onClose();
+	};
 	return (
 		<Stack align="start" spacing={5}>
 			{adminMenus.map((item, index) => {
@@ -14,6 +17,7 @@ const SidebarNav = () => {
 				return (
 					<NavLink
 						key={index}
+						onClick={handleClick}
 						exact={true}
 						activeStyle={{
 							fontWeight: "bold",
