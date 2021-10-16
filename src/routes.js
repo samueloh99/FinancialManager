@@ -5,7 +5,7 @@ import Home from "./components/paginas/Home";
 import Header from "./components/Header";
 import Sidebar from "./components/Sidebar/index";
 import Cliente from "./components/paginas/Cliente/index";
-import Financeiro from "./components/paginas/Financeiro";
+import Financeiro from "./components/paginas/Financeiro/index";
 
 const Routes = () => {
 	return (

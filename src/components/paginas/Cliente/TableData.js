@@ -21,7 +21,7 @@ import { api } from "../../../services/api";
 
 import { queryClient } from "../../../services/queryClient";
 
-import EditClienteForm from "./EditaClienteForm";
+import EditClienteForm from "./EditClienteForm";
 
 const TableData = ({ isLoading, error, data }) => {
 	const deleteCliente = useMutation(
