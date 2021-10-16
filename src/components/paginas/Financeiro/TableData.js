@@ -49,8 +49,8 @@ const TableData = ({ isLoading, error, data }) => {
 							return (
 								<Tr key={index}>
 									<Td>{item.titulo}</Td>
-									<Td>{item.tipo === "entrada" && item.valor}</Td>
-									<Td>{item.tipo === "saida" && item.valor}</Td>
+									<Td>R$ {item.tipo === "entrada" && item.valor}</Td>
+									<Td>R$ {item.tipo === "saida" && item.valor}</Td>
 									{isWideVersion && (
 										<>
 											<Td>{item.responsavel}</Td>

@@ -1,7 +1,7 @@
 import { Flex } from "@chakra-ui/react";
 import { Route, BrowserRouter } from "react-router-dom";
 
-import Home from "./components/paginas/Home";
+import Home from "./components/paginas/Home/Home";
 import Header from "./components/Header";
 import Sidebar from "./components/Sidebar/index";
 import Cliente from "./components/paginas/Cliente/index";
