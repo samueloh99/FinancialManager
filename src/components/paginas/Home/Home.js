@@ -19,7 +19,10 @@ import {
 
 import BaseTemplate from "../../../style/BaseTemplateContent";
 
+import { useClientes } from "../../../services/hooks/useClientes";
+
 const Home = () => {
+	const { data, isLoading, error, isFetching } = useClientes();
 	return (
 		<BaseTemplate>
 			<Flex direction="column" w="100%">
@@ -56,10 +59,20 @@ const Home = () => {
 						<Heading fontSize={{ base: "14px", lg: "20px" }} mb="5">
 							Clientes
 						</Heading>
-						<StatGroup>
+						<StatGroup flexDirection="column-reverse">
 							<Stat>
 								<StatLabel>Total</StatLabel>
-								<StatNumber>R$ 345,670</StatNumber>
+								<StatNumber>
+									R$
+									{data &&
+										data.reduce(
+											(a, c) => parseInt(a.valor) + parseInt(c.valor)
+										)}
+								</StatNumber>
+							</Stat>
+							<Stat>
+								<StatLabel>Quantidade</StatLabel>
+								<StatNumber>{data && data.length}</StatNumber>
 							</Stat>
 						</StatGroup>
 					</Box>

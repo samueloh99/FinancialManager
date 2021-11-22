@@ -138,6 +138,22 @@ const EditClienteForm = ({ id }) => {
 												</FormErrorMessage>
 											</FormControl>
 										</VStack>
+										<VStack align="start">
+											<FormControl isInvalid={errors.cliente}>
+												<FormLabel>VALOR</FormLabel>
+												<Input
+													{...register("valor", {
+														required: {
+															value: true,
+															message: "Campo Obrigatório",
+														},
+													})}
+												/>
+												<FormErrorMessage>
+													{errors.cliente && errors.cliente.message}
+												</FormErrorMessage>
+											</FormControl>
+										</VStack>
 										<VStack w="100%">
 											<Button
 												w="100%"

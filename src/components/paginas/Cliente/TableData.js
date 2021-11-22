@@ -64,6 +64,7 @@ const TableData = ({ isLoading, error, data }) => {
 									<Th>Marketing</Th>
 									<Th>Midia Social</Th>
 									<Th>Data Vencimento</Th>
+									<Th>Valor</Th>
 									<Th>Apagar</Th>
 								</>
 							)}
@@ -100,6 +101,9 @@ const TableData = ({ isLoading, error, data }) => {
 											</Td>
 											<Td>
 												<Text>DIA {item.vencimento}</Text>
+											</Td>
+											<Td>
+												<Text>R${item.valor}</Text>
 											</Td>
 											<Td>
 												<DeleteIcon

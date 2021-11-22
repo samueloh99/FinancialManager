@@ -103,6 +103,22 @@ const AddClienteForm = ({ onClose }) => {
 								</FormErrorMessage>
 							</FormControl>
 						</VStack>
+						<VStack align="start">
+							<FormControl isInvalid={errors.cliente}>
+								<FormLabel>VALOR</FormLabel>
+								<Input
+									{...register("valor", {
+										required: {
+											value: true,
+											message: "Campo Obrigatório",
+										},
+									})}
+								/>
+								<FormErrorMessage>
+									{errors.cliente && errors.cliente.message}
+								</FormErrorMessage>
+							</FormControl>
+						</VStack>
 						<Button colorScheme="pink" type="submit" isLoading={isSubmitting}>
 							Adicionar cliente
 						</Button>
