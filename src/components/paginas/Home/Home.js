@@ -8,12 +8,6 @@ import {
 	Stat,
 	StatLabel,
 	StatNumber,
-	Table,
-	Thead,
-	Tbody,
-	Tr,
-	Th,
-	Td,
 	StatGroup,
 } from "@chakra-ui/react";
 
@@ -21,8 +15,13 @@ import BaseTemplate from "../../../style/BaseTemplateContent";
 
 import { useClientes } from "../../../services/hooks/useClientes";
 
+import { useMovimentacoes } from "../../../services/hooks/useMovimentacao";
+
 const Home = () => {
 	const { data } = useClientes();
+
+	const { data: dataMovimentacoes } = useMovimentacoes();
+
 	return (
 		<BaseTemplate>
 			<Flex direction="column" w="100%">
@@ -78,28 +77,17 @@ const Home = () => {
 							Despesa Fixo
 						</Heading>
 						<StatGroup>
-							<Table size="sm">
-								<Thead>
-									<Tr>
-										<Th>Título</Th>
-										<Th isNumeric>Valor</Th>
-									</Tr>
-								</Thead>
-								<Tbody>
-									<Tr>
-										<Td>Agua</Td>
-										<Td isNumeric>R$ 200,00</Td>
-									</Tr>
-									<Tr>
-										<Td>Salario Gusta</Td>
-										<Td isNumeric>R$2000,00</Td>
-									</Tr>
-									<Tr>
-										<Td>Salario Gusta</Td>
-										<Td isNumeric>R$2000,00</Td>
-									</Tr>
-								</Tbody>
-							</Table>
+							<Stat>
+								<StatLabel>Total</StatLabel>
+								<StatNumber>
+									R$
+									{dataMovimentacoes &&
+										dataMovimentacoes.reduce(
+											(a, c) => a + parseInt(c.valor),
+											0
+										)}
+								</StatNumber>
+							</Stat>
 						</StatGroup>
 					</Box>
 				</SimpleGrid>

@@ -155,26 +155,10 @@ const EditFinanceiroForm = ({ id }) => {
 									</HStack>
 
 									<VStack align="start">
-										<FormControl isInvalid={errors.responsavel}>
-											<FormLabel>Responsável</FormLabel>
-											<Input
-												{...register("responsavel", {
-													required: {
-														value: true,
-														message: "Campo Obrigatório",
-													},
-												})}
-											/>
-											<FormErrorMessage>
-												{errors.responsavel && errors.responsavel.message}
-											</FormErrorMessage>
-										</FormControl>
-									</VStack>
-									<VStack align="start">
 										<FormControl isInvalid={errors.date}>
 											<FormLabel>DATA</FormLabel>
 											<Input
-												type="date"
+												type="number"
 												{...register("date", {
 													required: {
 														value: true,

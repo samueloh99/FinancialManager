@@ -1,5 +1,7 @@
 import React from "react";
 
+import { useMutation } from "react-query";
+
 import {
 	Flex,
 	Text,
@@ -15,11 +17,31 @@ import {
 
 import EditFinanceiroForm from "./EditFinanceiroForm";
 
+import { DeleteIcon } from "@chakra-ui/icons";
+
+import { apiMovimentacoes } from "../../../services/api";
+
+import { queryClient } from "../../../services/queryClient";
+
 const TableData = ({ isLoading, error, data }) => {
 	const isWideVersion = useBreakpointValue({
 		base: false,
 		lg: true,
 	});
+
+	const deleteMovimentacao = useMutation(
+		async (id) => {
+			const response = await apiMovimentacoes.delete(`/${id}`);
+
+			return response;
+		},
+		{ onSuccess: () => queryClient.invalidateQueries("movimentacoes") }
+	);
+
+	const onDelete = async (props) => {
+		await deleteMovimentacao.mutateAsync(props);
+		queryClient.resetQueries("movimentacoes");
+	};
 
 	return (
 		<>
@@ -40,8 +62,8 @@ const TableData = ({ isLoading, error, data }) => {
 							<Th>Saída</Th>
 							{isWideVersion && (
 								<>
-									<Th>Responsável</Th>
 									<Th>Data</Th>
+									<Th>Remover</Th>
 									<Th>Editar</Th>
 								</>
 							)}
@@ -56,9 +78,14 @@ const TableData = ({ isLoading, error, data }) => {
 									<Td>R$ {item.tipo === "saida" ? item.valor : 0}</Td>
 									{isWideVersion && (
 										<>
-											<Td>{item.responsavel}</Td>
 											<Td>
 												<Text>{item.date}</Text>
+											</Td>
+											<Td>
+												<DeleteIcon
+													cursor="pointer"
+													onClick={() => onDelete(item._id)}
+												/>
 											</Td>
 											<Td>
 												<EditFinanceiroForm id={item._id} />
