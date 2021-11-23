@@ -64,11 +64,7 @@ const Login = () => {
 
 	const resolver = useYupValidationResolver(validationSchema);
 
-	const {
-		handleSubmit,
-		register,
-		formState: { errors },
-	} = useForm({ resolver });
+	const { handleSubmit, register } = useForm({ resolver });
 	return (
 		<Flex
 			direction="column"

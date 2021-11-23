@@ -22,7 +22,7 @@ import BaseTemplate from "../../../style/BaseTemplateContent";
 import { useClientes } from "../../../services/hooks/useClientes";
 
 const Home = () => {
-	const { data, isLoading, error, isFetching } = useClientes();
+	const { data } = useClientes();
 	return (
 		<BaseTemplate>
 			<Flex direction="column" w="100%">
