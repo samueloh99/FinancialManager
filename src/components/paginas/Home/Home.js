@@ -64,10 +64,7 @@ const Home = () => {
 								<StatLabel>Total</StatLabel>
 								<StatNumber>
 									R$
-									{data &&
-										data.reduce(
-											(a, c) => parseInt(a.valor) + parseInt(c.valor)
-										)}
+									{data && data.reduce((a, c) => a + parseInt(c.valor), 0)}
 								</StatNumber>
 							</Stat>
 							<Stat>
