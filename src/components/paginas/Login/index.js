@@ -75,8 +75,7 @@ const Login = () => {
 			w="100%"
 			h="100vh"
 			justifyContent="center"
-			alignItems="center"
-			border="1px solid red">
+			alignItems="center">
 			<Heading>LOGIN</Heading>
 			<Box mt="10">
 				<form onSubmit={handleSubmit((data) => signIn(data))}>
