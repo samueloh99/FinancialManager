@@ -22,6 +22,11 @@ const Home = () => {
 
 	const { data: dataMovimentacoes } = useMovimentacoes();
 
+	let totalFixo = data && data.reduce((a, c) => a + parseInt(c.valor), 0);
+	let totalDespesa =
+		dataMovimentacoes &&
+		dataMovimentacoes.reduce((a, c) => a + parseInt(c.valor), 0);
+
 	return (
 		<BaseTemplate>
 			<Flex direction="column" w="100%">
@@ -45,12 +50,12 @@ const Home = () => {
 					</Box>
 					<Box p="7" bg="gray.900" borderRadius={8}>
 						<Heading fontSize={{ base: "14px", lg: "20px" }} mb="5">
-							A Receber
+							Balanço
 						</Heading>
 						<StatGroup>
 							<Stat>
 								<StatLabel>Valor</StatLabel>
-								<StatNumber>R$ 345,670</StatNumber>
+								<StatNumber>R$ {totalFixo - totalDespesa}</StatNumber>
 							</Stat>
 						</StatGroup>
 					</Box>
@@ -63,7 +68,7 @@ const Home = () => {
 								<StatLabel>Total</StatLabel>
 								<StatNumber>
 									R$
-									{data && data.reduce((a, c) => a + parseInt(c.valor), 0)}
+									{totalFixo}
 								</StatNumber>
 							</Stat>
 							<Stat>
@@ -81,11 +86,7 @@ const Home = () => {
 								<StatLabel>Total</StatLabel>
 								<StatNumber>
 									R$
-									{dataMovimentacoes &&
-										dataMovimentacoes.reduce(
-											(a, c) => a + parseInt(c.valor),
-											0
-										)}
+									{totalDespesa}
 								</StatNumber>
 							</Stat>
 						</StatGroup>
